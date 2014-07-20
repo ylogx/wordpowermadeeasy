@@ -9,8 +9,8 @@ public class WordPair {
 	}
 
 	public WordPair(String word,String meaning) {
-		word = new String(word);
-		meaning = new String(meaning);
+		this.word = word;	//XXX need new?
+		this.meaning = meaning;
 	}
 
 	public String word(){

@@ -1,5 +1,9 @@
 package com.example.wordpowermadeeasy;
 
+import java.io.IOException;
+
+import org.xmlpull.v1.XmlPullParserException;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,7 +26,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		wordEngine = new WordEngine();
+		wordEngine = new WordEngine(this);
 
 		textview_word = (TextView)findViewById(R.id.textview_word);
 		textview_meaning = (TextView)findViewById(R.id.textview_meaning);
@@ -49,7 +53,8 @@ public class MainActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void nextRandom(View v){
+	public void nextRandom(View v) throws  XmlPullParserException, IOException {
+		wordEngine.readXml();
 		WordPair wordPair = nextRandom();
 		textview_word.setText(wordPair.word());
 		textview_meaning.setText(wordPair.meaning());
