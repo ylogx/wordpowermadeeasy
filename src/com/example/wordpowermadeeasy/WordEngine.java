@@ -29,7 +29,8 @@ public class WordEngine {
         try {
 			this.word_map = readXml();
 			WordEngine.count += 1;
-			Log.d("Count",WordEngine.count);
+			System.out.println("Count ");
+			System.out.println(WordEngine.count);
 		} catch (XmlPullParserException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,38 +49,13 @@ public class WordEngine {
 	}
 	
 	public Map<String,String> readXml() throws XmlPullParserException, IOException {
-
-//		XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-//		factory.setNamespaceAware(true);
-//		XmlPullParser xpp = factory.newPullParser();
-
-//		FileInputStream fis = new  FileInputStream("word-list.xml");
-//	    InputStreamReader isr = new InputStreamReader(fis);
-//	    isr.read(new char[fis.available()]);
-//		xpp.setInput(isr);
-//		int eventType = xpp.getEventType();
-	    
 	    XmlResourceParser xrp = context.getResources().getXml(R.xml.word_list);
 
 	    xrp.next();
 	    int eventType = xrp.getEventType();
-//		xpp.setInput(new StringReader ("<foo>Hello World!</foo>"));
 	    String word = null,meaning = null;
 	    Map<String,String> word_pair_map = new HashMap<String,String>();
 		while (eventType != XmlPullParser.END_DOCUMENT) {
-
-//			if(eventType == XmlPullParser.START_DOCUMENT) {
-//				System.out.println("Start Document");
-//			} else if(eventType == XmlPullParser.END_DOCUMENT) {
-//				System.out.println("End Document");
-//			} else if(eventType == XmlPullParser.START_TAG) {
-//				System.out.println("Start tag "+xrp.getName());
-//			} else if(eventType == XmlPullParser.END_TAG) {
-//				System.out.println("End tag "+xrp.getName());
-//			} else if(eventType == XmlPullParser.TEXT) {
-//				System.out.println("Text "+xrp.getText());
-//			}
-		
 			if (eventType == XmlPullParser.START_TAG 
 					&& xrp.getName().equalsIgnoreCase("pair")){
 				//NOTE: In our xml file meaning comes before word and that matters
@@ -103,12 +79,11 @@ public class WordEngine {
 //						Log.i("W","Word: "+word);
 					}
 				}//end if elif
-				Log.d("Pair",word+meaning);
 			}//end if START_TAG
 			else if (eventType == XmlPullParser.END_TAG && xrp.getName().equalsIgnoreCase("pair")){
 				if (word != null && meaning != null && word.length() != 0 && meaning.length() != 0){
 					if (word_pair_map.get(word) == null){
-						Log.d("map",word+meaning);
+//						Log.d("map",word+meaning);
 						word_pair_map.put(word,meaning);
 					}
 				}
