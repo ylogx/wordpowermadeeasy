@@ -18,7 +18,7 @@
  *   You should have received a copy of the GNU General Public License
  *   along with WordPowerMadeEasy.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.example.wordpowermadeeasy;
+package com.developfreedom.wordpowermadeeasy;
 
 import android.app.Activity;
 import android.app.AlertDialog;

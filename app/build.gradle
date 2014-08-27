@@ -5,7 +5,7 @@ android {
     buildToolsVersion "20.0.0"
 
     defaultConfig {
-        applicationId "com.example.wordpowermadeeasy"
+        applicationId "com.developfreedom.wordpowermadeeasy"
         minSdkVersion 14
         targetSdkVersion 19
     }
