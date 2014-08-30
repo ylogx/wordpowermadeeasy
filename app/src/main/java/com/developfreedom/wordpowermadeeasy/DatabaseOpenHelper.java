@@ -49,6 +49,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //Creating tables
+        //TODO: This query gives error near KEY_INDEX
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_WORDLIST + " ("
                 + KEY_INDEX + " INTEGER PRIMARY KEY," + KEY_WORD + " TEXT,"
                 + KEY_MEANING + " TEXT," + KEY_SCORE + " INTEGER" + ")";
