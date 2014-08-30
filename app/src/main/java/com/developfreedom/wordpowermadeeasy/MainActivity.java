@@ -24,6 +24,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -41,6 +42,8 @@ public class MainActivity extends Activity {
     //Class Variables
     TextView textview_word, textview_meaning;
     Button button_next;
+    int DELAY_MEANING = 1000;   //Delay in showing meaning (millisec)
+    AsyncTask meaningDelayedTask;
 
     /* Engines */
     WordEngine wordEngine;
@@ -55,8 +58,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         wordEngine = new WordEngine(this);
-//		databaseEngine = new DatabaseEngine(this);
-//		databaseEngine.populateDatabase(wordEngine.getMapFromXml());
+//      databaseEngine = new DatabaseEngine(this);
+//      databaseEngine.populateDatabase(wordEngine.getMapFromXml());
 
         textview_word = (TextView)findViewById(R.id.textview_word);
         textview_meaning = (TextView)findViewById(R.id.textview_meaning);
@@ -99,14 +102,20 @@ public class MainActivity extends Activity {
     /** My Functions */
 
     public void nextRandom(View v) throws  XmlPullParserException, IOException {
-        //wordEngine.getWeekPairs(this.incrementor++);
+        if (meaningDelayedTask != null &&
+                meaningDelayedTask.getStatus() == AsyncTask.Status.RUNNING)
+            meaningDelayedTask.cancel(true);
         WordPair wordPair = nextRandom();
         textview_word.setText(wordPair.getWord());
-        textview_meaning.setText(wordPair.getMeaning());
-    }
+        textview_meaning.setText("");   //Empty, if user waits then show else move on
+        String meaning; //should be passed to task probably
+        meaning = wordPair.getMeaning();
+
+        //Run on thread with a delay of DELAY_MEANING
+        meaningDelayedTask = new LongRunningTask().execute(meaning);
+    } //end nextRandom
 
     public WordPair nextRandom(){ return wordEngine.getRandomWord(); }
-
 
     private void showWelcomeScreen(){
         // here you can launch another activity if you like
@@ -120,5 +129,24 @@ public class MainActivity extends Activity {
                     }
                 }).show();
     }
+
+
+    private class LongRunningTask extends AsyncTask<String, Void, Boolean> {
+        String meaning;
+        @Override
+        protected Boolean doInBackground(String...incomingStrings) {
+            meaning = incomingStrings[0]; //FIXME: Probably not best
+            try {
+                Thread.sleep(DELAY_MEANING);
+            } catch (InterruptedException e) {}
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            textview_meaning.setText(meaning);
+        }
+    }
 }
-// vim: set ts=4 sw=4 tw=0 noet :
+// vim: set ts=4 sw=4 tw=0 et :
