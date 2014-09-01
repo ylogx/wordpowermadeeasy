@@ -29,14 +29,14 @@ public class WordPair {
     public WordPair() {
     }
 
-    public WordPair(String word,String meaning) {
+    public WordPair(String word, String meaning) {
         this.setWord(word); //XXX need new?
         this.setMeaning(meaning);
         this.setIndex(-1);  //index only used for retrieving,
         this.setScore(0);
     }
 
-    public WordPair(String word,String meaning,int index, int score) {
+    public WordPair(String word, String meaning, int index, int score) {
         this.setWord(word);
         this.setMeaning(meaning);
         this.setIndex(index);
@@ -44,7 +44,7 @@ public class WordPair {
     }
 
     // getter & setter Word
-    public String getWord(){
+    public String getWord() {
         return this._word;
     }
 
@@ -53,7 +53,7 @@ public class WordPair {
     }
 
     // getter & setter Meaning
-    public String getMeaning(){
+    public String getMeaning() {
         return this._meaning;
     }
 

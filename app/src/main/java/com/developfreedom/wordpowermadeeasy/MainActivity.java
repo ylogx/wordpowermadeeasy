@@ -30,7 +30,6 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -39,18 +38,15 @@ import java.io.IOException;
 
 public class MainActivity extends Activity {
 
+    private final int DELAY_MEANING = 1000;   //Delay in showing meaning (millisec)
+    private final String welcomeScreenShownPref = "welcomeScreenShown";
     //Class Variables
-    TextView textview_word, textview_meaning;
-    Button button_next;
-    int DELAY_MEANING = 1000;   //Delay in showing meaning (millisec)
-    AsyncTask meaningDelayedTask;
-
+    private TextView textview_word;
+    private TextView textview_meaning;
+    private AsyncTask meaningDelayedTask;
     /* Engines */
-    WordEngine wordEngine;
-    // DatabaseEngine databaseEngine;
-    int incrementor;
-    SharedPreferences mPrefs;
-    final String welcomeScreenShownPref = "welcomeScreenShown";
+    private WordEngine wordEngine;
+    private SharedPreferences mPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +57,8 @@ public class MainActivity extends Activity {
 //      databaseEngine = new DatabaseEngine(this);
 //      databaseEngine.populateDatabase(wordEngine.getMapFromXml());
 
-        textview_word = (TextView)findViewById(R.id.textview_word);
-        textview_meaning = (TextView)findViewById(R.id.textview_meaning);
-
-        this.incrementor = 0;
+        textview_word = (TextView) findViewById(R.id.textview_word);
+        textview_meaning = (TextView) findViewById(R.id.textview_meaning);
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -99,9 +93,12 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    /** My Functions */
+    /**
+     * My Functions
+     */
 
-    public void nextRandom(View v) throws  XmlPullParserException, IOException {
+    //TODO: Make sure no need of throw now.
+    public void nextRandom(View v) throws XmlPullParserException, IOException {
         if (meaningDelayedTask != null &&
                 meaningDelayedTask.getStatus() == AsyncTask.Status.RUNNING)
             meaningDelayedTask.cancel(true);
@@ -115,9 +112,11 @@ public class MainActivity extends Activity {
         meaningDelayedTask = new LongRunningTask().execute(meaning);
     } //end nextRandom
 
-    public WordPair nextRandom(){ return wordEngine.getRandomWord(); }
+    public WordPair nextRandom() {
+        return wordEngine.getRandomWord();
+    }
 
-    private void showWelcomeScreen(){
+    private void showWelcomeScreen() {
         // here you can launch another activity if you like
         // the code below will display a popup
         String welcomeTitle = getResources().getString(R.string.welcomeTitle);
@@ -133,12 +132,15 @@ public class MainActivity extends Activity {
 
     private class LongRunningTask extends AsyncTask<String, Void, Boolean> {
         String meaning;
+
         @Override
-        protected Boolean doInBackground(String...incomingStrings) {
+        protected Boolean doInBackground(String... incomingStrings) {
             meaning = incomingStrings[0]; //FIXME: Probably not best
             try {
                 Thread.sleep(DELAY_MEANING);
-            } catch (InterruptedException e) {}
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             return true;
         }
