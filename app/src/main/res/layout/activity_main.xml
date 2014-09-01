@@ -16,10 +16,10 @@
 			<TextView
 			    android:id="@+id/textview_word"
 			    android:layout_width="fill_parent"
-			    android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="30"
 			    android:layout_marginLeft="15dp"
 			    android:layout_marginTop="15dp"
-			    android:layout_weight="33"
 			    android:gravity="center"
 			    android:text="Word"
 			    android:textColor="@android:color/holo_blue_light"
@@ -33,10 +33,10 @@
 			<TextView
 			    android:id="@+id/textview_meaning"
 			    android:layout_width="fill_parent"
-			    android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="50"
 			    android:layout_marginLeft="15dp"
 			    android:layout_marginTop="15dp"
-			    android:layout_weight="60"
 			    android:gravity="center"
 			    android:text="Meaning"
 			    android:textColor="@android:color/holo_blue_dark"
@@ -51,8 +51,8 @@
             <!-- FIXME: TODO: Not best way to create some gap from bottom -->
 			<RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="10"
+                android:layout_height="0dp"
+                android:layout_weight="20"
                 android:orientation="horizontal"
                 android:padding="70dp"
                 android:onClick="nextRandom"
