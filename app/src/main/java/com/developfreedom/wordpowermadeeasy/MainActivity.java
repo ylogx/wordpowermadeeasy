@@ -139,7 +139,9 @@ public class MainActivity extends Activity {
             try {
                 Thread.sleep(DELAY_MEANING);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                /* No need of stacktrace here. The exception is intentional. */
+                //Log.i("Sleep","Skipping this meaning: "+meaning);
+                //e.printStackTrace();
             }
 
             return true;
