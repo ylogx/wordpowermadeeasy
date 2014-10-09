@@ -86,10 +86,25 @@ public class MainActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        TextView tw_word = (TextView)findViewById(R.id.textview_word);
+        TextView tw_meaning = (TextView)findViewById(R.id.textview_meaning);
+        int color_word = tw_word.getCurrentTextColor();
+        int color_meaning = tw_meaning.getCurrentTextColor();
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.action_color_blue) {
+            color_word = getResources().getColor(R.color.holo_blue_light);
+            color_meaning = getResources().getColor(R.color.holo_blue_light);
+        } else if (id == R.id.action_color_green) {
+            color_word = getResources().getColor(R.color.holo_green_light);
+            color_meaning = getResources().getColor(R.color.holo_green_light);
+        } else if (id == R.id.action_color_orange) {
+            color_word = getResources().getColor(R.color.holo_orange_light);
+            color_meaning = getResources().getColor(R.color.holo_orange_light);
         }
+        tw_word.setTextColor(color_word);
+        tw_meaning.setTextColor(color_meaning);
         return super.onOptionsItemSelected(item);
     }
 
