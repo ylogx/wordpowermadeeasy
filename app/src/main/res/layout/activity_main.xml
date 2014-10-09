@@ -11,7 +11,58 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/button_purple"
+                android:onClick="color_purple"
+                android:padding="20dp"
+                android:layout_gravity="left"
+                android:background="@color/holo_purple"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+            <Button
+                android:id="@+id/button_blue"
+                android:onClick="color_blue"
+                android:padding="20dp"
+                android:layout_gravity="center"
+                android:background="@color/holo_blue_light"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+            <Button
+                android:id="@+id/button_green"
+                android:onClick="color_green"
+                android:padding="20dp"
+                android:layout_gravity="center"
+                android:background="@color/holo_green_light"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+
+            <Button
+                android:id="@+id/button_orange"
+                android:onClick="color_orange"
+                android:layout_gravity="center"
+                android:background="@color/holo_orange_light"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+            <Button
+                android:id="@+id/button_red"
+                android:onClick="color_red"
+                android:padding="20dp"
+                android:layout_gravity="right"
+                android:background="@color/holo_red_light"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+        </LinearLayout>
         <TextView
             android:id="@+id/textview_word"
             android:layout_width="fill_parent"

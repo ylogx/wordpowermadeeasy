@@ -40,6 +40,7 @@ public class MainActivity extends Activity {
 
     private final int DELAY_MEANING = 1000;   //Delay in showing meaning (millisec)
     private final String welcomeScreenShownPref = "welcomeScreenShown";
+    private final String textColorPref = "textColor";
     //Class Variables
     private TextView textview_word;
     private TextView textview_meaning;
@@ -53,14 +54,15 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
         wordEngine = new WordEngine(this);
 //      databaseEngine = new DatabaseEngine(this);
 //      databaseEngine.populateDatabase(wordEngine.getMapFromXml());
 
         textview_word = (TextView) findViewById(R.id.textview_word);
         textview_meaning = (TextView) findViewById(R.id.textview_meaning);
-
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        color_change(mPrefs.getString(textColorPref, "blue"));
 
         // second argument is the default to use if the preference can't be found
         Boolean welcomeScreenShown = mPrefs.getBoolean(welcomeScreenShownPref, false);
@@ -86,25 +88,16 @@ public class MainActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        TextView tw_word = (TextView)findViewById(R.id.textview_word);
-        TextView tw_meaning = (TextView)findViewById(R.id.textview_meaning);
-        int color_word = tw_word.getCurrentTextColor();
-        int color_meaning = tw_meaning.getCurrentTextColor();
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.action_color_blue) {
-            color_word = getResources().getColor(R.color.holo_blue_light);
-            color_meaning = getResources().getColor(R.color.holo_blue_light);
+            color_change("blue");
         } else if (id == R.id.action_color_green) {
-            color_word = getResources().getColor(R.color.holo_green_light);
-            color_meaning = getResources().getColor(R.color.holo_green_light);
+            color_change("green");
         } else if (id == R.id.action_color_orange) {
-            color_word = getResources().getColor(R.color.holo_orange_light);
-            color_meaning = getResources().getColor(R.color.holo_orange_light);
+            color_change("orange");
         }
-        tw_word.setTextColor(color_word);
-        tw_meaning.setTextColor(color_meaning);
         return super.onOptionsItemSelected(item);
     }
 
@@ -130,6 +123,40 @@ public class MainActivity extends Activity {
     public WordPair nextRandom() {
         return wordEngine.getRandomWord();
     }
+
+    public void color_change(String color) {
+        TextView tw_word = (TextView)findViewById(R.id.textview_word);
+        TextView tw_meaning = (TextView)findViewById(R.id.textview_meaning);
+        int color_word = tw_word.getCurrentTextColor();
+        int color_meaning = tw_meaning.getCurrentTextColor();
+        if (color.equals("blue")) {
+            color_word = getResources().getColor(R.color.holo_blue_light);
+            color_meaning = getResources().getColor(R.color.holo_blue_light);
+        } else if (color.equals("green")) {
+            color_word = getResources().getColor(R.color.holo_green_light);
+            color_meaning = getResources().getColor(R.color.holo_green_light);
+        } else if (color.equals("orange")) {
+            color_word = getResources().getColor(R.color.holo_orange_light);
+            color_meaning = getResources().getColor(R.color.holo_orange_light);
+        } else if (color.equals("red")) {
+            color_word = getResources().getColor(R.color.holo_red_light);
+            color_meaning = getResources().getColor(R.color.holo_red_light);
+        } else if (color.equals("purple") || color.equals("voilet")) {
+            color_word = color_meaning = getResources().getColor(R.color.holo_purple);
+        }
+        tw_word.setTextColor(color_word);
+        tw_meaning.setTextColor(color_meaning);
+        //Store in preferences
+        SharedPreferences.Editor editor = mPrefs.edit();
+        editor.putString(textColorPref, color);
+        editor.commit(); // Very important to save the preference
+    }
+
+    public void color_red(View v) { color_change("red"); }
+    public void color_blue(View v) { color_change("blue"); }
+    public void color_green(View v) { color_change("green"); }
+    public void color_orange(View v) { color_change("orange"); }
+    public void color_purple(View v) { color_change("purple"); }
 
     private void showWelcomeScreen() {
         // here you can launch another activity if you like
