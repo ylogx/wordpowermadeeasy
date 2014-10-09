@@ -69,7 +69,7 @@ public class MainActivity extends Activity {
             showWelcomeScreen();
             SharedPreferences.Editor editor = mPrefs.edit();
             editor.putBoolean(welcomeScreenShownPref, true);
-            editor.apply(); // Very important to save the preference
+            editor.commit(); // Very important to save the preference
         }
 
     }
