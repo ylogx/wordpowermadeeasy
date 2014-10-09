@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.developfreedom.wordpowermadeeasy"
     android:installLocation="auto"
-    android:versionCode="12"
-    android:versionName="0.1.2"
+    android:versionCode="13"
+    android:versionName="0.1.3"
     tools:ignore="GradleOverrides">
 
     <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="20" />
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
 
     <application
         android:allowBackup="true"
