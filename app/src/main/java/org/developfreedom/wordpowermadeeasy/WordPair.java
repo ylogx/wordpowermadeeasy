@@ -18,7 +18,7 @@
  *   You should have received a copy of the GNU General Public License
  *   along with WordPowerMadeEasy.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.developfreedom.wordpowermadeeasy;
+package org.developfreedom.wordpowermadeeasy;
 
 public class WordPair {
     //private variables
