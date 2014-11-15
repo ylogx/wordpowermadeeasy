@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="org.developfreedom.wordpowermadeeasy"
-    android:installLocation="auto"
-    android:versionCode="14"
-    android:versionName="0.1.4"
-    tools:ignore="GradleOverrides">
-
-    <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="19" />
+    android:installLocation="auto" >
 
     <application
         android:allowBackup="true"
