@@ -23,7 +23,9 @@ package org.developfreedom.wordpowermadeeasy;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -104,6 +106,14 @@ public class MainActivity extends Activity {
     /**
      * My Functions
      */
+
+    public void search_word(View v) {
+        String search_query = textview_word.getText().toString();
+        search_query = search_query.replace(' ','+');
+        Uri uri = Uri.parse("http://www.google.com/#q=define:"+search_query);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
 
     //TODO: Make sure no need of throw now.
     public void nextRandom(View v) throws XmlPullParserException, IOException {
