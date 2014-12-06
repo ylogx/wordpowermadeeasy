@@ -29,14 +29,20 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.wordnik.client.api.WordApi;
+import com.wordnik.client.common.ApiException;
+import com.wordnik.client.model.Definition;
+
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.List;
 
 public class MainActivity extends Activity {
     public final static String _ClassName = MainActivity.class.getSimpleName();
@@ -106,6 +112,39 @@ public class MainActivity extends Activity {
     /**
      * My Functions
      */
+    class WordSearchAsyncTask extends AsyncTask<String, Void, Definition> {
+        String search_query, meaning;
+        @Override
+        protected Definition doInBackground(String... params) {
+            search_query = params[0];
+            WordApi api = new WordApi();
+            api.addHeader("api_key", "YOUR_API_KEY");
+            //query,sourceDictionaries='all',includeRelated='true',useCanonical='false',includeTags='false'
+            List<Definition> def = null;
+            try {
+                def = api.getDefinitions(search_query,"all","all",10,"true","false","false");
+                Log.d("Shits", "Def received: " + def.toString());
+            } catch (ApiException e) {
+                e.printStackTrace();
+            }
+            Definition definition = null;
+            if (def != null) {
+                definition = def.get(0); //XXX: Returning just one
+            }
+            return definition;
+        }
+
+        @Override
+        protected void onPostExecute(Definition d) {
+            Log.d("WordSearchAsyncTask", d.toString());
+            meaning = d.getText();
+            if (search_query.equals(textview_word.getText().toString())) {
+                String tw_text = textview_meaning.getText().toString();
+                tw_text += "Web says: " + meaning;
+                textview_meaning.setText(tw_text);
+            }
+        }
+    }
 
     public void search_word(View v) {
         String search_query = textview_word.getText().toString();
@@ -128,6 +167,8 @@ public class MainActivity extends Activity {
 
         //Run on thread with a delay of DELAY_MEANING
         meaningDelayedTask = new LongRunningTask().execute(meaning);
+        WordSearchAsyncTask wordSearchAsyncTask = new WordSearchAsyncTask();
+        wordSearchAsyncTask.execute(wordPair.getWord());
     } //end nextRandom
 
     public WordPair nextRandom() {
