@@ -118,7 +118,9 @@ public class MainActivity extends Activity {
         protected Definition doInBackground(String... params) {
             search_query = params[0];
             WordApi api = new WordApi();
-            api.addHeader("api_key", "YOUR_API_KEY");
+            String apiKey = "a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
+            apiKey = "9c20e2ed369b002e580010499c40f84816050d822330fadbd"; //Get your own freaking key ! ! !
+            api.addHeader("api_key", apiKey);
             //query,sourceDictionaries='all',includeRelated='true',useCanonical='false',includeTags='false'
             List<Definition> def = null;
             try {
@@ -136,6 +138,7 @@ public class MainActivity extends Activity {
 
         @Override
         protected void onPostExecute(Definition d) {
+            if (d == null) return;
             Log.d("WordSearchAsyncTask", d.toString());
             meaning = d.getText();
             if (search_query.equals(textview_word.getText().toString())) {
