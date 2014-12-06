@@ -39,7 +39,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 
 public class MainActivity extends Activity {
-
+    public final static String _ClassName = MainActivity.class.getSimpleName();
     private final int DELAY_MEANING = 1000;   //Delay in showing meaning (millisec)
     private final String welcomeScreenShownPref = "welcomeScreenShown";
     private final String textColorPref = "textColor";
