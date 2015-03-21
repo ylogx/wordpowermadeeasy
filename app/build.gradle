@@ -20,7 +20,11 @@ android {
     }
 }
 
+//apply plugin: 'android-unit-test'
+
 dependencies {
-//    compile 'com.android.support:support-v4:+'
-//    compile 'com.android.support:appcompat-v7:+'
+    //    compile 'com.android.support:support-v4:+'
+    //    compile 'com.android.support:appcompat-v7:+'
+    testCompile 'junit:junit:4.10'
+    testCompile 'org.robolectric:robolectric:2.4'
 }
