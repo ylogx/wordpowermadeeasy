@@ -18,6 +18,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+    sourceSets {
+        androidTest.setRoot('src/test')
+    }
 }
 
 //apply plugin: 'android-unit-test'
@@ -27,4 +30,7 @@ dependencies {
     //    compile 'com.android.support:appcompat-v7:+'
     testCompile 'junit:junit:4.10'
     testCompile 'org.robolectric:robolectric:2.4'
+
+    androidTestCompile 'junit:junit:4.10'
+    androidTestCompile 'org.robolectric:robolectric:2.4'
 }
