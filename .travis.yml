@@ -42,7 +42,8 @@ script: ./gradlew clean test
 after_failure:
   # Customize this line, 'app' is the specific app module name of this project. Shows log.
   - export MY_MOD="app"
-  - export MY_LOG_DIR="$(pwd)/${MY_MOD}/build/outputs/reports/androidTests/connected/"
+  #- export MY_LOG_DIR="$(pwd)/${MY_MOD}/build/outputs/reports/androidTests/connected/"
+  - export MY_LOG_DIR="$(pwd)/${MY_MOD}/build/reports/tests/debug/'
   - pwd && cd "${MY_LOG_DIR:-.}" && pwd && ls -al
   - sudo apt-get install -qq lynx && lynx --dump index.html > myIndex.log
   - for file in *.html; do echo "$file"; echo "====================="; lynx --dump $file; done || true
