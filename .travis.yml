@@ -3,22 +3,22 @@ android:
   components:
     # Uncomment the lines below if you want to
     # use the latest revision of Android SDK Tools
-    - platform-tools
-    - tools
+    #- platform-tools
+    #- tools
 
     # The BuildTools version used by your project
     - build-tools-21.1.1
 
     # The SDK version used to compile your project
-    - android-21
+    #- android-21
 
     # Additional components
-    - add-on
-    - extra
+    #- add-on
+    #- extra
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-21
+    #- sys-img-armeabi-v7a-android-21
 
 
   jdk:
