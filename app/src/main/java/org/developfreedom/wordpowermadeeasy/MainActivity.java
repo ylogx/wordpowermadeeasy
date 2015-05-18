@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
 
         textview_word = (TextView) findViewById(R.id.textview_word);
         textview_meaning = (TextView) findViewById(R.id.textview_meaning);
-        color_change(mPrefs.getString(textColorPref, "blue"));
+        color_change(mPrefs.getString(textColorPref, "green"));
 
         // second argument is the default to use if the preference can't be found
         Boolean welcomeScreenShown = mPrefs.getBoolean(welcomeScreenShownPref, false);

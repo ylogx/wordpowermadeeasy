@@ -94,7 +94,7 @@
                 android:freezesText="true"
                 android:gravity="center"
                 android:text="@string/textbox_default_word"
-                android:textColor="#ff33b5e5"
+                android:textColor="@color/holo_green_light"
                 android:textIsSelectable="true"
                 android:textSize="40sp"
                 android:textStyle="bold"
@@ -135,7 +135,7 @@
             android:gravity="center"
             android:onClick="nextRandom"
             android:text="@string/textbox_default_meaning"
-            android:textColor="#ff0099cc"
+            android:textColor="@color/holo_green_light"
             android:textSize="22sp"
             android:textStyle="bold"
             android:typeface="monospace" />
