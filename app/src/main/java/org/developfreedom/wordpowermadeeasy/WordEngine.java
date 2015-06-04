@@ -1,22 +1,22 @@
 /**
- *   Word Power Made Easy - A vocabulary building application
- *
- *   Copyright (c) 2014 Shubham Chaudhary <me@shubhamchaudhary.in>
- *
- *   This file is part of WordPowerMadeEasy.
- *
- *   WordPowerMadeEasy is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- *
- *   WordPowerMadeEasy is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with WordPowerMadeEasy.  If not, see <http://www.gnu.org/licenses/>.
+ * Word Power Made Easy - A vocabulary building application
+ * <p/>
+ * Copyright (c) 2014 Shubham Chaudhary <me@shubhamchaudhary.in>
+ * <p/>
+ * This file is part of WordPowerMadeEasy.
+ * <p/>
+ * WordPowerMadeEasy is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * <p/>
+ * WordPowerMadeEasy is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with WordPowerMadeEasy.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.developfreedom.wordpowermadeeasy;
 
@@ -28,16 +28,11 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class WordEngine {
 

@@ -1,22 +1,22 @@
 /**
- *   Word Power Made Easy - A vocabulary building application
- *
- *   Copyright (c) 2014 Shubham Chaudhary <me@shubhamchaudhary.in>
- *
- *   This file is part of WordPowerMadeEasy.
- *
- *   WordPowerMadeEasy is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- *
- *   WordPowerMadeEasy is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with WordPowerMadeEasy.  If not, see <http://www.gnu.org/licenses/>.
+ * Word Power Made Easy - A vocabulary building application
+ * <p/>
+ * Copyright (c) 2014 Shubham Chaudhary <me@shubhamchaudhary.in>
+ * <p/>
+ * This file is part of WordPowerMadeEasy.
+ * <p/>
+ * WordPowerMadeEasy is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * <p/>
+ * WordPowerMadeEasy is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with WordPowerMadeEasy.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.developfreedom.wordpowermadeeasy;
 

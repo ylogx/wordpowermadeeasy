@@ -22,15 +22,16 @@ import sys
 # These are the words/patterns that exist at the
 # begining of useless lines in txt files
 USELESS_WORDLIST_SHORT = [
-        '\n',
-        'Notes',
-        'Page ',
-        'Group',
-        ]
+    '\n',
+    'Notes',
+    'Page ',
+    'Group',
+]
 USELESS_WORDLIST_LONG = [
-        'More wo',
-        '\x0cGroup ',
-        ]
+    'More wo',
+    '\x0cGroup ',
+]
+
 
 def main(argv):
     argc = len(argv)
@@ -42,7 +43,7 @@ def main(argv):
     fhan = open(filename, 'rU')
     data = fhan.readlines()
     # Create dictionary of words read from txt files
-    word_pair_list = []    # We need list of dicts below to xmlify
+    word_pair_list = []  # We need list of dicts below to xmlify
     current_dict = {}
     i = 0
     while i < len(data):
@@ -71,9 +72,11 @@ def main(argv):
         i += 1
     return list_to_xml(word_pair_list)
 
+
 def list_to_xml(list_of_dicts):
     ''' Create XML from python dictionary '''
     from dict2xml import dict2xml as xmlify
+
     xml_out = xmlify(list_of_dicts, wrap='pair', indent=' ')
     print(xml_out)
     return xml_out

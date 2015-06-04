@@ -1,22 +1,22 @@
 /**
- *   Word Power Made Easy - A vocabulary building application
- *
- *   Copyright (c) 2014 Shubham Chaudhary <me@shubhamchaudhary.in>
- *
- *   This file is part of WordPowerMadeEasy.
- *
- *   WordPowerMadeEasy is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- *
- *   WordPowerMadeEasy is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with WordPowerMadeEasy.  If not, see <http://www.gnu.org/licenses/>.
+ * Word Power Made Easy - A vocabulary building application
+ * <p/>
+ * Copyright (c) 2014 Shubham Chaudhary <me@shubhamchaudhary.in>
+ * <p/>
+ * This file is part of WordPowerMadeEasy.
+ * <p/>
+ * WordPowerMadeEasy is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * <p/>
+ * WordPowerMadeEasy is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with WordPowerMadeEasy.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.developfreedom.wordpowermadeeasy;
 
@@ -33,7 +33,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
@@ -109,8 +108,8 @@ public class MainActivity extends Activity {
 
     public void search_word(View v) {
         String search_query = textview_word.getText().toString();
-        search_query = search_query.replace(' ','+');
-        Uri uri = Uri.parse("http://www.google.com/#q=define:"+search_query);
+        search_query = search_query.replace(' ', '+');
+        Uri uri = Uri.parse("http://www.google.com/#q=define:" + search_query);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }
@@ -135,8 +134,8 @@ public class MainActivity extends Activity {
     }
 
     public void color_change(String color) {
-        TextView tw_word = (TextView)findViewById(R.id.textview_word);
-        TextView tw_meaning = (TextView)findViewById(R.id.textview_meaning);
+        TextView tw_word = (TextView) findViewById(R.id.textview_word);
+        TextView tw_meaning = (TextView) findViewById(R.id.textview_meaning);
         int color_word = tw_word.getCurrentTextColor();
         int color_meaning = tw_meaning.getCurrentTextColor();
         if (color.equals("blue")) {
@@ -162,11 +161,25 @@ public class MainActivity extends Activity {
         editor.commit(); // Very important to save the preference
     }
 
-    public void color_red(View v) { color_change("red"); }
-    public void color_blue(View v) { color_change("blue"); }
-    public void color_green(View v) { color_change("green"); }
-    public void color_orange(View v) { color_change("orange"); }
-    public void color_purple(View v) { color_change("purple"); }
+    public void color_red(View v) {
+        color_change("red");
+    }
+
+    public void color_blue(View v) {
+        color_change("blue");
+    }
+
+    public void color_green(View v) {
+        color_change("green");
+    }
+
+    public void color_orange(View v) {
+        color_change("orange");
+    }
+
+    public void color_purple(View v) {
+        color_change("purple");
+    }
 
     private void showWelcomeScreen() {
         // here you can launch another activity if you like
