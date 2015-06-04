@@ -125,11 +125,11 @@ public class MainActivity extends Activity {
         meaningDelayedTask = new LongRunningTask().execute(meaning);
     } //end nextRandom
 
-    public WordPair nextRandom() {
+    private WordPair nextRandom() {
         return wordEngine.getRandomWord();
     }
 
-    public void color_change(String color) {
+    private void color_change(String color) {
         TextView tw_word = (TextView) findViewById(R.id.textview_word);
         TextView tw_meaning = (TextView) findViewById(R.id.textview_meaning);
         int color_word = tw_word.getCurrentTextColor();

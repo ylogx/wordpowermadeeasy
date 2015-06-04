@@ -43,7 +43,7 @@ public class WordEngine {
     private Cursor cursor;
     private Map<String, String> word_map;
 
-    WordEngine(Context ctx) {
+    public WordEngine(Context ctx) {
         this.context = ctx;
         this.myDatabaseHelper = new DatabaseOpenHelper(this.context);
         try {
@@ -62,7 +62,7 @@ public class WordEngine {
         }
     }
 
-    void populateDatabase(Map<String, String> word_map) {
+    private void populateDatabase(Map<String, String> word_map) {
         try {
             int DEFAULT_SCORE = 50;
             String word, meaning;
@@ -88,7 +88,7 @@ public class WordEngine {
     }//end populateDatabase
 
 
-    void check_database() {
+    private void check_database() {
         try {
             //Checking db
             String[] columns = new String[]{
@@ -161,7 +161,7 @@ public class WordEngine {
         return word_pair_map;
     }//end readXml
 
-    Map<String, String> getMapFromXml() {
+    private Map<String, String> getMapFromXml() {
         try {
             return readXml();
         } catch (XmlPullParserException e) {
@@ -174,7 +174,7 @@ public class WordEngine {
         return null;
     }
 
-    List<WordPair> getWeekPairs(int week_number) {
+    private List<WordPair> getWeekPairs(int week_number) {
         int WEEK_COUNT = 50;
         //XXX week_number starts from 0
         week_number += 1;
