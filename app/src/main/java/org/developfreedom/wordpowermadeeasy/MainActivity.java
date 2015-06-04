@@ -33,9 +33,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
 
 public class MainActivity extends Activity {
     public final static String _ClassName = MainActivity.class.getSimpleName();
@@ -114,8 +111,7 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
-    //TODO: Make sure no need of throw now.
-    public void nextRandom(View v) throws XmlPullParserException, IOException {
+    public void nextRandom(View v) {
         if (meaningDelayedTask != null &&
                 meaningDelayedTask.getStatus() == AsyncTask.Status.RUNNING)
             meaningDelayedTask.cancel(true);
