@@ -1,8 +1,25 @@
 apply plugin: 'com.android.application'
 
+dependencies {
+    // compile 'com.android.support:support-v4:+'
+    // compile 'com.android.support:appcompat-v7:+'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.jakewharton.timber:timber:3.1.0'
+    compile "com.android.support:support-annotations:${android_support_lib_version}"
+
+    testCompile 'junit:junit:4.10'
+    testCompile 'org.robolectric:robolectric:2.4'
+
+    androidTestCompile 'junit:junit:4.10'
+    androidTestCompile 'org.robolectric:robolectric:2.4'
+}
+
+def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
+def buildTime = new Date().format("yyyy-MM-dd'T'HH:mm:ss'Z'", TimeZone.getTimeZone("UTC"))
+
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion Integer.parseInt(compile_sdk_version)
+    buildToolsVersion '23.0.2'
 
     defaultConfig {
         applicationId "org.developfreedom.wordpowermadeeasy"
@@ -10,27 +27,68 @@ android {
         targetSdkVersion 23
         versionCode 16
         versionName "0.1.6"
+
+        buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
+        buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
+    }
+
+    signingConfigs {
+        developfreedom    //Filled in readSigningConfigIfAvailable()
     }
 
     buildTypes {
         release {
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            readSigningConfigIfAvailable()
+        }
+
+        debug {
+            applicationIdSuffix ".debug"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable true
+            //testCoverageEnabled true
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+        textReport true
+        textOutput 'stdout'
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
     sourceSets {
         androidTest.setRoot('src/test')
     }
 }
 
-//apply plugin: 'android-unit-test'
+private void readSigningConfigIfAvailable() {
+    if (hasAllSigningProperties()) {
+        android.signingConfigs.developfreedom.storeFile = file(develop_freedom_keystore_path)
+        android.signingConfigs.developfreedom.storePassword = develop_freedom_keystore_password
+        android.signingConfigs.developfreedom.keyAlias = develop_freedom_key_alias
+        android.signingConfigs.developfreedom.keyPassword = develop_freedom_key_password
+        android.buildTypes.release.signingConfig = android.signingConfigs.developfreedom
+    } else {
+        android.buildTypes.release.signingConfig = null
+    }
+}
 
-dependencies {
-    //    compile 'com.android.support:support-v4:+'
-    //    compile 'com.android.support:appcompat-v7:+'
-    testCompile 'junit:junit:4.10'
-    testCompile 'org.robolectric:robolectric:2.4'
-
-    androidTestCompile 'junit:junit:4.10'
-    androidTestCompile 'org.robolectric:robolectric:2.4'
+private boolean hasAllSigningProperties() {
+    (hasProperty('develop_freedom_keystore_path')
+            && hasProperty('develop_freedom_keystore_password')
+            && hasProperty('develop_freedom_key_alias')
+            && hasProperty('develop_freedom_key_password'))
 }
