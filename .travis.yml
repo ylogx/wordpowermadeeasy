@@ -1,16 +1,11 @@
 language: android
 android:
   components:
-    # Uncomment the lines below if you want to
-    # use the latest revision of Android SDK Tools
     #- platform-tools
-    #- tools
-
-    # The BuildTools version used by your project
+    - tools
     - build-tools-23.0.2
-
-    # The SDK version used to compile your project
     - android-23
+    - extra-android-m2repository
 
     # Additional components
     #- add-on
@@ -49,5 +44,5 @@ after_failure:
   #- export MY_LOG_DIR="$(pwd)/${MY_MOD}/build/outputs/reports/androidTests/connected/"
   - export MY_LOG_DIR="$(pwd)/${MY_MOD}/build/reports/tests/debug/'
   - pwd && cd "${MY_LOG_DIR:-.}" && pwd && ls -al
-  - sudo apt-get install -qq lynx && lynx --dump index.html > myIndex.log
+  - apt-get install -qq lynx && lynx --dump index.html > myIndex.log
   - for file in *.html; do echo "$file"; echo "====================="; lynx --dump $file; done || true
