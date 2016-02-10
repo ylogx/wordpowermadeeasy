@@ -33,56 +33,80 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class MainActivity extends Activity {
-    public final static String _ClassName = MainActivity.class.getSimpleName();
-    private final int DELAY_MEANING = 1000;   //Delay in showing meaning (millisec)
-    private final String welcomeScreenShownPref = "welcomeScreenShown";
-    private final String textColorPref = "textColor";
+    public static final String TAG = MainActivity.class.getSimpleName();
+    public static final String COLOR_BLUE = "blue";
+    public static final String COLOR_RED = "red";
+    public static final String COLOR_GREEN = "green";
+    public static final String COLOR_ORANGE = "orange";
+    public static final String COLOR_PURPLE = "purple";
+    private static final int MILLIS_DELAY_IN_SHOWING_MEANING = 1000;
+    private static final String PREF_WELCOME_SCREEN_SHOWN = "welcomeScreenShown";
+    private final String PREF_TEXT_COLOR = "textColor";
     //Class Variables
-    private TextView textview_word;
-    private TextView textview_meaning;
+    @Bind(R.id.textview_word) TextView wordTv;
+    @Bind(R.id.textview_meaning) TextView meaningTv;
     private AsyncTask meaningDelayedTask;
     /* Engines */
     private WordEngine wordEngine;
-    private SharedPreferences mPrefs;
+    private SharedPreferences prefs;
+    private int colorBlue;
+    private int colorGreen;
+    private int colorOrange;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         wordEngine = new WordEngine(this);
 //      databaseEngine = new DatabaseEngine(this);
 //      databaseEngine.populateDatabase(wordEngine.getMapFromXml());
 
-        textview_word = (TextView) findViewById(R.id.textview_word);
-        textview_meaning = (TextView) findViewById(R.id.textview_meaning);
-        color_change(mPrefs.getString(textColorPref, "green"));
+        changeColor(prefs.getString(PREF_TEXT_COLOR, COLOR_GREEN));
 
         // second argument is the default to use if the preference can't be found
-        Boolean welcomeScreenShown = mPrefs.getBoolean(welcomeScreenShownPref, false);
+        showWelcomeScreenIfNotShownYet();
+    }
+
+    private void showWelcomeScreenIfNotShownYet() {
+        Boolean welcomeScreenShown = prefs.getBoolean(PREF_WELCOME_SCREEN_SHOWN, false);
 
         if (!welcomeScreenShown) {
             showWelcomeScreen();
-            SharedPreferences.Editor editor = mPrefs.edit();
-            editor.putBoolean(welcomeScreenShownPref, true);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean(PREF_WELCOME_SCREEN_SHOWN, true);
             editor.commit(); // Very important to save the preference
         }
-
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    private void showWelcomeScreen() {
+        // here you can launch another activity if you like
+        // the code below will display a popup
+        String welcomeTitle = getResources().getString(R.string.welcomeTitle);
+        String welcomeText = getResources().getString(R.string.welcomeText);
+        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_menu_help)
+                .setTitle(welcomeTitle)
+                .setMessage(welcomeText)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
+    }
+
+    @Override public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -90,11 +114,11 @@ public class MainActivity extends Activity {
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.action_color_blue) {
-            color_change("blue");
+            changeColor(COLOR_BLUE);
         } else if (id == R.id.action_color_green) {
-            color_change("green");
+            changeColor(COLOR_GREEN);
         } else if (id == R.id.action_color_orange) {
-            color_change("orange");
+            changeColor(COLOR_ORANGE);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -103,10 +127,10 @@ public class MainActivity extends Activity {
      * My Functions
      */
 
-    public void search_word(View v) {
-        String search_query = textview_word.getText().toString();
-        search_query = search_query.replace(' ', '+');
-        Uri uri = Uri.parse("http://www.google.com/#q=define:" + search_query);
+    public void searchWord(View v) {
+        String searchQuery = wordTv.getText().toString();
+        searchQuery = searchQuery.replace(' ', '+');
+        Uri uri = Uri.parse("http://www.google.com/#q=define:" + searchQuery);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }
@@ -116,12 +140,11 @@ public class MainActivity extends Activity {
                 meaningDelayedTask.getStatus() == AsyncTask.Status.RUNNING)
             meaningDelayedTask.cancel(true);
         WordPair wordPair = nextRandom();
-        textview_word.setText(wordPair.getWord());
-        textview_meaning.setText("");   //Empty, if user waits then show else move on
-        String meaning; //should be passed to task probably
-        meaning = wordPair.getMeaning();
+        wordTv.setText(wordPair.getWord());
+        meaningTv.setText("");   //Empty, if user waits then show else move on
+        String meaning = wordPair.getMeaning(); //should be passed to task probably
 
-        //Run on thread with a delay of DELAY_MEANING
+        //Run on thread with a delay of MILLIS_DELAY_IN_SHOWING_MEANING
         meaningDelayedTask = new LongRunningTask().execute(meaning);
     } //end nextRandom
 
@@ -129,67 +152,54 @@ public class MainActivity extends Activity {
         return wordEngine.getRandomWord();
     }
 
-    private void color_change(String color) {
-        TextView tw_word = (TextView) findViewById(R.id.textview_word);
-        TextView tw_meaning = (TextView) findViewById(R.id.textview_meaning);
-        int color_word = tw_word.getCurrentTextColor();
-        int color_meaning = tw_meaning.getCurrentTextColor();
-        if (color.equals("blue")) {
-            color_word = getResources().getColor(R.color.holo_blue_light);
-            color_meaning = getResources().getColor(R.color.holo_blue_light);
-        } else if (color.equals("green")) {
-            color_word = getResources().getColor(R.color.holo_green_light);
-            color_meaning = getResources().getColor(R.color.holo_green_light);
-        } else if (color.equals("orange")) {
-            color_word = getResources().getColor(R.color.holo_orange_light);
-            color_meaning = getResources().getColor(R.color.holo_orange_light);
-        } else if (color.equals("red")) {
-            color_word = getResources().getColor(R.color.holo_red_light);
-            color_meaning = getResources().getColor(R.color.holo_red_light);
-        } else if (color.equals("purple") || color.equals("voilet")) {
-            color_word = color_meaning = getResources().getColor(R.color.holo_purple);
+    private void changeColor(String color) {
+        int wordTvCurrentTextColor = wordTv.getCurrentTextColor();
+        int meaningTvCurrentTextColor = meaningTv.getCurrentTextColor();
+        if (color.equals(COLOR_BLUE)) {
+            colorBlue = getResources().getColor(R.color.holo_blue_light);
+            wordTvCurrentTextColor = colorBlue;
+            meaningTvCurrentTextColor = colorBlue;
+        } else if (color.equals(COLOR_GREEN)) {
+            colorGreen = getResources().getColor(R.color.holo_green_light);
+            wordTvCurrentTextColor = colorGreen;
+            meaningTvCurrentTextColor = colorGreen;
+        } else if (color.equals(COLOR_ORANGE)) {
+            colorOrange = getResources().getColor(R.color.holo_orange_light);
+            wordTvCurrentTextColor = colorOrange;
+            meaningTvCurrentTextColor = colorOrange;
+        } else if (color.equals(COLOR_RED)) {
+            wordTvCurrentTextColor = getResources().getColor(R.color.holo_red_light);
+            meaningTvCurrentTextColor = getResources().getColor(R.color.holo_red_light);
+        } else if (color.equals(COLOR_PURPLE) || color.equals("voilet")) {
+            wordTvCurrentTextColor = meaningTvCurrentTextColor = getResources().getColor(R.color.holo_purple);
         }
-        tw_word.setTextColor(color_word);
-        tw_meaning.setTextColor(color_meaning);
+        wordTv.setTextColor(wordTvCurrentTextColor);
+        meaningTv.setTextColor(meaningTvCurrentTextColor);
         //Store in preferences
-        SharedPreferences.Editor editor = mPrefs.edit();
-        editor.putString(textColorPref, color);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(PREF_TEXT_COLOR, color);
         editor.commit(); // Very important to save the preference
     }
 
-    public void color_red(View v) {
-        color_change("red");
+    public void colorRed(View v) {
+        changeColor(COLOR_RED);
     }
 
-    public void color_blue(View v) {
-        color_change("blue");
+    public void colorBlue(View v) {
+        changeColor(COLOR_BLUE);
     }
 
-    public void color_green(View v) {
-        color_change("green");
+    public void colorGreen(View v) {
+        changeColor(COLOR_GREEN);
     }
 
-    public void color_orange(View v) {
-        color_change("orange");
+    public void colorOrange(View v) {
+        changeColor(COLOR_ORANGE);
     }
 
-    public void color_purple(View v) {
-        color_change("purple");
+    public void colorPurple(View v) {
+        changeColor(COLOR_PURPLE);
     }
-
-    private void showWelcomeScreen() {
-        // here you can launch another activity if you like
-        // the code below will display a popup
-        String welcomeTitle = getResources().getString(R.string.welcomeTitle);
-        String welcomeText = getResources().getString(R.string.welcomeText);
-        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_menu_help).setTitle(welcomeTitle).setMessage(welcomeText).setPositiveButton(
-                R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).show();
-    }
-
 
     private class LongRunningTask extends AsyncTask<String, Void, Boolean> {
         String meaning;
@@ -198,7 +208,7 @@ public class MainActivity extends Activity {
         protected Boolean doInBackground(String... incomingStrings) {
             meaning = incomingStrings[0]; //FIXME: Probably not best
             try {
-                Thread.sleep(DELAY_MEANING);
+                Thread.sleep(MILLIS_DELAY_IN_SHOWING_MEANING);
             } catch (InterruptedException e) {
                 /* No need of stacktrace here. The exception is intentional. */
                 //Log.i("Sleep","Skipping this meaning: "+meaning);
@@ -210,7 +220,7 @@ public class MainActivity extends Activity {
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
-            textview_meaning.setText(meaning);
+            meaningTv.setText(meaning);
         }
     }
 }
