@@ -22,61 +22,52 @@ package org.developfreedom.wordpowermadeeasy;
 
 public class WordPair {
     //private variables
-    private String _word, _meaning;
-    private int _index, _score;
-
-    //Empty Constructor
-    public WordPair() {
-    }
+    private String word;
+    private String meaning;
+    private int index;
+    private int score;
 
     public WordPair(String word, String meaning) {
-        this.setWord(word); //XXX need new?
-        this.setMeaning(meaning);
-        this.setIndex(-1);  //index only used for retrieving,
-        this.setScore(0);
-    }
-
-    public WordPair(String word, String meaning, int index, int score) {
-        this.setWord(word);
-        this.setMeaning(meaning);
-        this.setIndex(index);
-        this.setScore(score);
+        setWord(word); //XXX need new?
+        setMeaning(meaning);
+        setIndex(-1);  //index only used for retrieving,
+        setScore(0);
     }
 
     // getter & setter Word
     public String getWord() {
-        return this._word;
+        return word;
     }
 
     public void setWord(String word) {
-        this._word = word;
+        this.word = word;
     }
 
     // getter & setter Meaning
     public String getMeaning() {
-        return this._meaning;
+        return meaning;
     }
 
     public void setMeaning(String meaning) {
-        this._meaning = meaning;
+        this.meaning = meaning;
     }
 
     // getter & setter Index
     public int getIndex() {
-        return this._index;
+        return index;
     }
 
     public void setIndex(int index) {
-        this._index = index;
+        this.index = index;
     }
 
     // getter & setter Score
     public int getScore() {
-        return this._score;
+        return score;
     }
 
     public void setScore(int score) {
-        this._score = score;
+        this.score = score;
     }
 
 }

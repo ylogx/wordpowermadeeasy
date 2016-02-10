@@ -35,7 +35,6 @@ import java.io.IOException;
 import java.util.*;
 
 public class WordEngine {
-
     private static int count = 0;
     private final Context context;
     private final SQLiteOpenHelper myDatabaseHelper;
@@ -45,11 +44,11 @@ public class WordEngine {
 
     public WordEngine(Context ctx) {
         this.context = ctx;
-        this.myDatabaseHelper = new DatabaseOpenHelper(this.context);
+        this.myDatabaseHelper = new DatabaseOpenHelper(context);
         try {
             //XXX do this once ever
             this.word_map = readXml();
-            populateDatabase(this.word_map);
+            populateDatabase(word_map);
             WordEngine.count += 1;
             System.out.println("Count ");
             System.out.println(WordEngine.count);
@@ -91,7 +90,7 @@ public class WordEngine {
     private void check_database() {
         try {
             //Checking db
-            String[] columns = new String[]{
+            String[] columns = {
 //                      DatabaseOpenHelper.KEY_INDEX,
                     DatabaseOpenHelper.KEY_WORD,
                     DatabaseOpenHelper.KEY_MEANING,
@@ -113,7 +112,7 @@ public class WordEngine {
         String randomKey = keys.get(rand.nextInt(keys.size()));
         String value = word_map.get(randomKey);
         //WordPair new_word = new WordPair(randomKey, value);
-        return (new WordPair(randomKey, value));
+        return new WordPair(randomKey, value);
     }
 
     public Map<String, String> readXml() throws XmlPullParserException, IOException {
