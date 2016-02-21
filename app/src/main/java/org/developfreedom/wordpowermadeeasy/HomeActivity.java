@@ -193,7 +193,9 @@ public class HomeActivity extends Activity {
         }
 
         @Override public void run() {
-            textView.setText(text);
+            if (textView != null) {
+                textView.setText(text);
+            }
         }
     }
 }
