@@ -1,29 +1,29 @@
 /**
- *   Word Power Made Easy - A vocabulary building application
- *
- *   This file is part of LogMeIn.
- *   Copyright (c) 2014 Shubham Chaudhary <me@shubhamchaudhary.in>
- *   Copyright (c) 2014 Tanjot Kaur <tanjot28@gmail.com>
- *   Copyright (c) 2014 Vivek Aggarwal <vivekaggarwal92@gmail.com>
- *
- *   This file is now also a part of WordPowerMadeEasy.
- *   Copyright (c) 2014 Shubham Chaudhary <me@shubhamchaudhary.in>
- *
- *   WordPowerMadeEasy is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- *
- *   WordPowerMadeEasy is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with WordPowerMadeEasy.  If not, see <http://www.gnu.org/licenses/>.
+ * Word Power Made Easy - A vocabulary building application
+ * <p/>
+ * This file is part of LogMeIn.
+ * Copyright (c) 2016 Shubham Chaudhary <me@shubhamchaudhary.in>
+ * Copyright (c) 2016 Tanjot Kaur <tanjot28@gmail.com>
+ * Copyright (c) 2016 Vivek Aggarwal <vivekaggarwal92@gmail.com>
+ * <p/>
+ * This file is now also a part of WordPowerMadeEasy.
+ * Copyright (c) 2016 Shubham Chaudhary <me@shubhamchaudhary.in>
+ * <p/>
+ * WordPowerMadeEasy is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * <p/>
+ * WordPowerMadeEasy is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with WordPowerMadeEasy.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.developfreedom.wordpowermadeeasy;
+package org.developfreedom.wordpowermadeeasy.storage;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

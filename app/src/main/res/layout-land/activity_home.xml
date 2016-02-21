@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/home_background"
+              android:orientation="horizontal"
+              android:padding="@dimen/keyline">
+
+    <LinearLayout
+        android:layout_width="291dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/top_bar"/>
+
+        <TextView
+            android:id="@+id/textview_word"
+            style="@style/Widget.WPME.Main.Word.Landscape"
+            android:text="@string/textbox_default_word"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textview_meaning"
+        style="@style/Widget.WPME.Main.Meaning.Landscape"
+        android:text="@string/textbox_default_meaning"/>
+
+</LinearLayout>

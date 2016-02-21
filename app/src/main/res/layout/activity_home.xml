@@ -1,0 +1,20 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/home_background"
+              android:orientation="vertical"
+              android:padding="@dimen/keyline">
+
+    <include layout="@layout/top_bar"/>
+
+    <TextView
+        android:id="@+id/textview_word"
+        style="@style/Widget.WPME.Main.Word.Portrait"
+        android:text="@string/textbox_default_word"/>
+
+    <TextView
+        android:id="@+id/textview_meaning"
+        style="@style/Widget.WPME.Main.Meaning.Portrait"
+        android:text="@string/textbox_default_meaning"/>
+
+</LinearLayout>
