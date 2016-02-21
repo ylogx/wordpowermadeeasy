@@ -35,6 +35,8 @@ import android.view.View;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import org.developfreedom.wordpowermadeeasy.word.WordEngine;
+import org.developfreedom.wordpowermadeeasy.word.WordPair;
 
 public class HomeActivity extends Activity {
     public static final String TAG = HomeActivity.class.getSimpleName();
