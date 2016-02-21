@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:showIn="@layout/activity_main">
+
+    <Button
+        android:id="@+id/button_purple"
+        style="@style/Widget.WPME.Main.ColorBox.Button"
+        android:background="@color/holo_purple"
+        android:onClick="colorPurple"/>
+
+    <Button
+        android:id="@+id/button_blue"
+        style="@style/Widget.WPME.Main.ColorBox.Button"
+        android:background="@color/holo_blue_light"
+        android:onClick="colorBlue"/>
+
+    <Button
+        android:id="@+id/button_green"
+        style="@style/Widget.WPME.Main.ColorBox.Button"
+        android:background="@color/holo_green_light"
+        android:onClick="colorGreen"/>
+
+
+    <Button
+        android:id="@+id/button_orange"
+        style="@style/Widget.WPME.Main.ColorBox.Button"
+        android:background="@color/holo_orange_light"
+        android:onClick="colorOrange"/>
+
+    <Button
+        android:id="@+id/button_red"
+        style="@style/Widget.WPME.Main.ColorBox.Button"
+        android:background="@color/holo_red_light"
+        android:onClick="colorRed"/>
+</LinearLayout>
