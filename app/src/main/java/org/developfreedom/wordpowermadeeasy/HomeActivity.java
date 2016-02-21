@@ -36,6 +36,7 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.BindColor;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import org.developfreedom.wordpowermadeeasy.word.WordEngine;
 import org.developfreedom.wordpowermadeeasy.word.WordPair;
 
@@ -48,7 +49,7 @@ public class HomeActivity extends Activity {
     public static final String COLOR_PURPLE = "purple";
     private static final int MILLIS_DELAY_IN_SHOWING_MEANING = 1000;
     private static final String PREF_WELCOME_SCREEN_SHOWN = "welcomeScreenShown";
-    private final String PREF_TEXT_COLOR = "textColor";
+    private static final String PREF_TEXT_COLOR = "textColor";
     @Bind(R.id.textview_word) TextView wordTv;
     @Bind(R.id.textview_meaning) TextView meaningTv;
     @BindColor(R.color.holo_blue_light) int colorBlue;
@@ -117,11 +118,7 @@ public class HomeActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * My Functions
-     */
-
-    public void searchWord(View v) {
+    @OnClick(R.id.button_search) void searchWord() {
         String searchQuery = wordTv.getText().toString();
         searchQuery = searchQuery.replace(' ', '+');
         Uri uri = Uri.parse("http://www.google.com/#q=define:" + searchQuery);
@@ -129,7 +126,7 @@ public class HomeActivity extends Activity {
         startActivity(intent);
     }
 
-    public void nextRandom(View v) {
+    @OnClick(R.id.textview_meaning) void nextRandom(View v) {
         if (meaningDelayedTask != null &&
                 meaningDelayedTask.getStatus() == AsyncTask.Status.RUNNING)
             meaningDelayedTask.cancel(true);
@@ -140,7 +137,7 @@ public class HomeActivity extends Activity {
 
         //Run on thread with a delay of MILLIS_DELAY_IN_SHOWING_MEANING
         meaningDelayedTask = new LongRunningTask().execute(meaning);
-    } //end nextRandom
+    }
 
     private WordPair nextRandom() {
         return wordEngine.getRandomWord();
@@ -195,22 +192,17 @@ public class HomeActivity extends Activity {
     private class LongRunningTask extends AsyncTask<String, Void, Boolean> {
         String meaning;
 
-        @Override
-        protected Boolean doInBackground(String... incomingStrings) {
-            meaning = incomingStrings[0]; //FIXME: Probably not best
+        @Override protected Boolean doInBackground(String... incomingStrings) {
+            meaning = incomingStrings[0];
             try {
                 Thread.sleep(MILLIS_DELAY_IN_SHOWING_MEANING);
-            } catch (InterruptedException e) {
-                /* No need of stacktrace here. The exception is intentional. */
-                //Log.i("Sleep","Skipping this meaning: "+meaning);
-                //e.printStackTrace();
+            } catch (InterruptedException ignored) {
             }
 
             return true;
         }
 
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
+        @Override protected void onPostExecute(Boolean aBoolean) {
             meaningTv.setText(meaning);
         }
     }

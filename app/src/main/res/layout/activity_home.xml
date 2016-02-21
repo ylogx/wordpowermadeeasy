@@ -19,7 +19,6 @@
         <ImageButton
             android:id="@+id/button_search"
             style="@style/Widget.WPME.Main.Search"
-            android:onClick="searchWord"
             android:src="@drawable/ic_search"/>
     </LinearLayout>
 
@@ -31,7 +30,6 @@
     <TextView
         android:id="@+id/textview_meaning"
         style="@style/Widget.WPME.Main.Meaning"
-        android:onClick="nextRandom"
         android:text="@string/textbox_default_meaning"/>
 
 </LinearLayout>

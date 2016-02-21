@@ -81,7 +81,6 @@
                     android:layout_alignParentRight="true"
                     android:layout_gravity="right"
                     android:background="@null"
-                    android:onClick="searchWord"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_search"/>
 
@@ -133,7 +132,6 @@
                 android:clickable="true"
                 android:freezesText="true"
                 android:gravity="center"
-                android:onClick="nextRandom"
                 android:text="@string/textbox_default_meaning"
                 android:textColor="@color/holo_green_light"
                 android:textSize="22sp"
