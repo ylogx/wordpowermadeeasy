@@ -46,11 +46,10 @@ public class MainActivity extends Activity {
     private static final int MILLIS_DELAY_IN_SHOWING_MEANING = 1000;
     private static final String PREF_WELCOME_SCREEN_SHOWN = "welcomeScreenShown";
     private final String PREF_TEXT_COLOR = "textColor";
-    //Class Variables
     @Bind(R.id.textview_word) TextView wordTv;
     @Bind(R.id.textview_meaning) TextView meaningTv;
     private AsyncTask meaningDelayedTask;
-    /* Engines */
+    /** Engines */
     private WordEngine wordEngine;
     private SharedPreferences prefs;
     private int colorBlue;
@@ -62,15 +61,10 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
         wordEngine = new WordEngine(this);
-//      databaseEngine = new DatabaseEngine(this);
-//      databaseEngine.populateDatabase(wordEngine.getMapFromXml());
-
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
         changeColor(prefs.getString(PREF_TEXT_COLOR, COLOR_GREEN));
 
-        // second argument is the default to use if the preference can't be found
         showWelcomeScreenIfNotShownYet();
     }
 
@@ -81,13 +75,11 @@ public class MainActivity extends Activity {
             showWelcomeScreen();
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean(PREF_WELCOME_SCREEN_SHOWN, true);
-            editor.commit(); // Very important to save the preference
+            editor.commit();
         }
     }
 
     private void showWelcomeScreen() {
-        // here you can launch another activity if you like
-        // the code below will display a popup
         String welcomeTitle = getResources().getString(R.string.welcomeTitle);
         String welcomeText = getResources().getString(R.string.welcomeText);
         new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_menu_help)
@@ -101,7 +93,6 @@ public class MainActivity extends Activity {
     }
 
     @Override public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
