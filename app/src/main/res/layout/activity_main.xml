@@ -18,11 +18,8 @@
 
         <ImageButton
             android:id="@+id/button_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
+            style="@style/Widget.WPME.Main.Search"
             android:onClick="searchWord"
-            android:scaleType="fitXY"
             android:src="@drawable/ic_search"/>
     </LinearLayout>
 

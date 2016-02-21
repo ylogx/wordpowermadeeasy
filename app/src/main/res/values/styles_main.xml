@@ -44,4 +44,12 @@
         <item name="android:textStyle">bold</item>
         <item name="android:typeface">monospace</item>
     </style>
+
+    <style name="Widget.WPME.Main.Search">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+        <item name="android:contentDescription">@string/image_button_content_description_search</item>
+        <item name="android:scaleType">fitXY</item>
+    </style>
 </resources>

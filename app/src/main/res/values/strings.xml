@@ -12,5 +12,6 @@
     <string name="textbox_default_word">Word</string>
     <string name="textbox_default_meaning">Meaning</string>
     <string name="action_settings">Settings</string>
+    <string name="image_button_content_description_search">Search Button</string>
 
 </resources>
