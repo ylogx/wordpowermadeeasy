@@ -26,7 +26,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -57,10 +56,10 @@ public class HomeActivity extends Activity {
     @BindColor(R.color.holo_orange_light) int colorOrange;
     @BindColor(R.color.holo_red_light) int colorRed;
     @BindColor(R.color.holo_purple) int colorPurple;
-    private AsyncTask meaningDelayedTask;
     /** Engines */
     private WordEngine wordEngine;
     private SharedPreferences prefs;
+    private Runnable meaningChangeRunnable;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,16 +126,15 @@ public class HomeActivity extends Activity {
     }
 
     @OnClick(R.id.textview_meaning) void nextRandom() {
-        if (meaningDelayedTask != null &&
-                meaningDelayedTask.getStatus() == AsyncTask.Status.RUNNING)
-            meaningDelayedTask.cancel(true);
+        meaningTv.removeCallbacks(meaningChangeRunnable);
+
         WordPair wordPair = wordEngine.getRandomWord();
         wordTv.setText(wordPair.getWord());
         meaningTv.setText("");   //Empty, if user waits then show else move on
-        String meaning = wordPair.getMeaning(); //should be passed to task probably
 
         //Run on thread with a delay of MILLIS_DELAY_IN_SHOWING_MEANING
-        meaningDelayedTask = new LongRunningTask().execute(meaning);
+        meaningChangeRunnable = new TextChangeRunnable(meaningTv, wordPair.getMeaning());
+        meaningTv.postDelayed(meaningChangeRunnable, MILLIS_DELAY_IN_SHOWING_MEANING);
     }
 
     private void changeColor(String color) {
@@ -185,21 +183,17 @@ public class HomeActivity extends Activity {
         changeColor(COLOR_PURPLE);
     }
 
-    private class LongRunningTask extends AsyncTask<String, Void, Boolean> {
-        String meaning;
+    private static class TextChangeRunnable implements Runnable {
+        private TextView textView;
+        private String text;
 
-        @Override protected Boolean doInBackground(String... incomingStrings) {
-            meaning = incomingStrings[0];
-            try {
-                Thread.sleep(MILLIS_DELAY_IN_SHOWING_MEANING);
-            } catch (InterruptedException ignored) {
-            }
-
-            return true;
+        public TextChangeRunnable(TextView textView, String text) {
+            this.textView = textView;
+            this.text = text;
         }
 
-        @Override protected void onPostExecute(Boolean aBoolean) {
-            meaningTv.setText(meaning);
+        @Override public void run() {
+            textView.setText(text);
         }
     }
 }
