@@ -40,6 +40,7 @@ import butterknife.OnClick;
 import org.developfreedom.wordpowermadeeasy.utils.Intents;
 import org.developfreedom.wordpowermadeeasy.utils.ViewUtils;
 import org.developfreedom.wordpowermadeeasy.word.WordEngine;
+import org.developfreedom.wordpowermadeeasy.word.XmlWordEngine;
 import org.developfreedom.wordpowermadeeasy.word.WordPair;
 
 public class HomeActivity extends Activity {
@@ -64,7 +65,8 @@ public class HomeActivity extends Activity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
-        wordEngine = new WordEngine(this);
+        wordEngine = new XmlWordEngine(this);
+
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         changeColorAndSaveInPrefs(prefs.getInt(PREF_TEXT_COLOR, colorGreen));
 
