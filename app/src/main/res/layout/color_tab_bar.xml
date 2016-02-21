@@ -9,31 +9,26 @@
     <Button
         android:id="@+id/button_purple"
         style="@style/Widget.WPME.Main.TopBar.ColorBox.Button"
-        android:background="@color/holo_purple"
-        android:onClick="colorPurple"/>
+        android:background="@color/holo_purple"/>
 
     <Button
         android:id="@+id/button_blue"
         style="@style/Widget.WPME.Main.TopBar.ColorBox.Button"
-        android:background="@color/holo_blue_light"
-        android:onClick="colorBlue"/>
+        android:background="@color/holo_blue_light"/>
 
     <Button
         android:id="@+id/button_green"
         style="@style/Widget.WPME.Main.TopBar.ColorBox.Button"
-        android:background="@color/holo_green_light"
-        android:onClick="colorGreen"/>
+        android:background="@color/holo_green_light"/>
 
 
     <Button
         android:id="@+id/button_orange"
         style="@style/Widget.WPME.Main.TopBar.ColorBox.Button"
-        android:background="@color/holo_orange_light"
-        android:onClick="colorOrange"/>
+        android:background="@color/holo_orange_light"/>
 
     <Button
         android:id="@+id/button_red"
         style="@style/Widget.WPME.Main.TopBar.ColorBox.Button"
-        android:background="@color/holo_red_light"
-        android:onClick="colorRed"/>
+        android:background="@color/holo_red_light"/>
 </LinearLayout>

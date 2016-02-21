@@ -28,6 +28,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.ColorInt;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,15 +41,10 @@ import org.developfreedom.wordpowermadeeasy.word.WordEngine;
 import org.developfreedom.wordpowermadeeasy.word.WordPair;
 
 public class HomeActivity extends Activity {
-    public static final String TAG = HomeActivity.class.getSimpleName();
-    public static final String COLOR_BLUE = "blue";
-    public static final String COLOR_RED = "red";
-    public static final String COLOR_GREEN = "green";
-    public static final String COLOR_ORANGE = "orange";
-    public static final String COLOR_PURPLE = "purple";
+    public static final String PREF_WELCOME_SCREEN_SHOWN = "welcomeScreenShown";
+    public static final String PREF_TEXT_COLOR = "textColor";
+    private static final String TAG = HomeActivity.class.getSimpleName();
     private static final int MILLIS_DELAY_IN_SHOWING_MEANING = 1000;
-    private static final String PREF_WELCOME_SCREEN_SHOWN = "welcomeScreenShown";
-    private static final String PREF_TEXT_COLOR = "textColor";
     @Bind(R.id.textview_word) TextView wordTv;
     @Bind(R.id.textview_meaning) TextView meaningTv;
     @BindColor(R.color.holo_blue_light) int colorBlue;
@@ -68,7 +64,7 @@ public class HomeActivity extends Activity {
 
         wordEngine = new WordEngine(this);
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        changeColor(prefs.getString(PREF_TEXT_COLOR, COLOR_GREEN));
+        changeColorAndSaveInPrefs(prefs.getInt(PREF_TEXT_COLOR, colorGreen));
 
         showWelcomeScreenIfNotShownYet();
     }
@@ -101,18 +97,16 @@ public class HomeActivity extends Activity {
     }
 
     @Override public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
-        } else if (id == R.id.action_color_blue) {
-            changeColor(COLOR_BLUE);
+        }
+        if (id == R.id.action_color_blue) {
+            changeColorAndSaveInPrefs(colorBlue);
         } else if (id == R.id.action_color_green) {
-            changeColor(COLOR_GREEN);
+            changeColorAndSaveInPrefs(colorGreen);
         } else if (id == R.id.action_color_orange) {
-            changeColor(COLOR_ORANGE);
+            changeColorAndSaveInPrefs(colorOrange);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -137,50 +131,36 @@ public class HomeActivity extends Activity {
         meaningTv.postDelayed(meaningChangeRunnable, MILLIS_DELAY_IN_SHOWING_MEANING);
     }
 
-    private void changeColor(String color) {
-        int wordTvCurrentTextColor = wordTv.getCurrentTextColor();
-        int meaningTvCurrentTextColor = meaningTv.getCurrentTextColor();
-        if (color.equals(COLOR_BLUE)) {
-            wordTvCurrentTextColor = colorBlue;
-            meaningTvCurrentTextColor = colorBlue;
-        } else if (color.equals(COLOR_GREEN)) {
-            wordTvCurrentTextColor = colorGreen;
-            meaningTvCurrentTextColor = colorGreen;
-        } else if (color.equals(COLOR_ORANGE)) {
-            wordTvCurrentTextColor = colorOrange;
-            meaningTvCurrentTextColor = colorOrange;
-        } else if (color.equals(COLOR_RED)) {
-            wordTvCurrentTextColor = colorRed;
-            meaningTvCurrentTextColor = colorRed;
-        } else if (color.equals(COLOR_PURPLE) || color.equals("voilet")) {
-            wordTvCurrentTextColor = meaningTvCurrentTextColor = colorPurple;
+    @OnClick({
+            R.id.button_blue,
+            R.id.button_red,
+            R.id.button_green,
+            R.id.button_orange,
+            R.id.button_purple,
+    }) void changeColor(View v) {
+        int id = v.getId();
+        int color = wordTv.getCurrentTextColor();
+        if (id == R.id.button_blue) {
+            color = colorBlue;
+        } else if (id == R.id.button_green) {
+            color = colorGreen;
+        } else if (id == R.id.button_orange) {
+            color = colorOrange;
+        } else if (id == R.id.button_red) {
+            color = colorRed;
+        } else if (id == R.id.button_purple) {
+            color = colorPurple;
         }
-        wordTv.setTextColor(wordTvCurrentTextColor);
-        meaningTv.setTextColor(meaningTvCurrentTextColor);
+        changeColorAndSaveInPrefs(color);
+    }
+
+    private void changeColorAndSaveInPrefs(@ColorInt int color) {
+        wordTv.setTextColor(color);
+        meaningTv.setTextColor(color);
         //Store in preferences
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(PREF_TEXT_COLOR, color);
+        editor.putInt(PREF_TEXT_COLOR, color);
         editor.commit(); // Very important to save the preference
-    }
-
-    public void colorRed(View v) {
-        changeColor(COLOR_RED);
-    }
-
-    public void colorBlue(View v) {
-        changeColor(COLOR_BLUE);
-    }
-
-    public void colorGreen(View v) {
-        changeColor(COLOR_GREEN);
-    }
-
-    public void colorOrange(View v) {
-        changeColor(COLOR_ORANGE);
-    }
-
-    public void colorPurple(View v) {
-        changeColor(COLOR_PURPLE);
     }
 
     private static class TextChangeRunnable implements Runnable {
