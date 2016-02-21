@@ -20,20 +20,24 @@
  */
 package org.developfreedom.wordpowermadeeasy.word;
 
+import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang3.StringUtils;
 
 public class WordPair {
     //private variables
-    private String word;
-    private String meaning;
+    @SerializedName("word") String word = "";
+    @SerializedName("meaning") String meaning = "";
     private int index;
     private int score;
 
+    public WordPair() {
+    }
+
     public WordPair(String word, String meaning) {
-        setWord(word); //XXX need new?
-        setMeaning(meaning);
-        setIndex(-1);  //index only used for retrieving,
-        setScore(0);
+        this.word = word;
+        this.meaning = meaning;
+        this.index = -1;
+        this.score = 0;
     }
 
     // getter & setter Word

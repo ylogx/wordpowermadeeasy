@@ -40,8 +40,8 @@ import butterknife.OnClick;
 import org.developfreedom.wordpowermadeeasy.utils.Intents;
 import org.developfreedom.wordpowermadeeasy.utils.ViewUtils;
 import org.developfreedom.wordpowermadeeasy.word.WordEngine;
-import org.developfreedom.wordpowermadeeasy.word.XmlWordEngine;
 import org.developfreedom.wordpowermadeeasy.word.WordPair;
+import org.developfreedom.wordpowermadeeasy.word.XmlWordEngine;
 
 public class HomeActivity extends Activity {
     public static final String PREF_WELCOME_SCREEN_SHOWN = "welcomeScreenShown";

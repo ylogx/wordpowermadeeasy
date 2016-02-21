@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 dependencies {
     // compile 'com.android.support:support-v4:+'
     // compile 'com.android.support:appcompat-v7:+'
+    compile 'com.google.code.gson:gson:2.6.1'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.jakewharton.timber:timber:3.1.0'
