@@ -5,31 +5,16 @@
               android:orientation="vertical"
               android:padding="@dimen/keyline">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <include
-            layout="@layout/color_tab_bar"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
-        <ImageButton
-            android:id="@+id/button_search"
-            style="@style/Widget.WPME.Main.Search"
-            android:src="@drawable/ic_search"/>
-    </LinearLayout>
+    <include layout="@layout/top_bar"/>
 
     <TextView
         android:id="@+id/textview_word"
-        style="@style/Widget.WPME.Main.Word"
+        style="@style/Widget.WPME.Main.Word.Portrait"
         android:text="@string/textbox_default_word"/>
 
     <TextView
         android:id="@+id/textview_meaning"
-        style="@style/Widget.WPME.Main.Meaning"
+        style="@style/Widget.WPME.Main.Meaning.Portrait"
         android:text="@string/textbox_default_meaning"/>
 
 </LinearLayout>
