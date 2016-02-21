@@ -102,7 +102,7 @@ public class HomeActivity extends Activity {
         meaningTv.setText("");   //Empty, if user waits then show else move on
 
         //Run on thread with a delay of MILLIS_DELAY_IN_SHOWING_MEANING
-        meaningChangeRunnable = new TextChangeRunnable(meaningTv, wordPair.getMeaning());
+        meaningChangeRunnable = new TextChangeRunnable(meaningTv, wordPair.getMeaningForDisplay());
         meaningTv.postDelayed(meaningChangeRunnable, MILLIS_DELAY_IN_SHOWING_MEANING);
     }
 

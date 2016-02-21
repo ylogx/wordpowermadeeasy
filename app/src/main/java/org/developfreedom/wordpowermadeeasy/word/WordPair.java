@@ -20,6 +20,8 @@
  */
 package org.developfreedom.wordpowermadeeasy.word;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class WordPair {
     //private variables
     private String word;
@@ -41,6 +43,10 @@ public class WordPair {
 
     public void setWord(String word) {
         this.word = word;
+    }
+
+    public String getMeaningForDisplay() {
+        return StringUtils.capitalize(meaning);
     }
 
     // getter & setter Meaning
