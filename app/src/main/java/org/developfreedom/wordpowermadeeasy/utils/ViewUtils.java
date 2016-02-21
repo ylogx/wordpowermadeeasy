@@ -1,4 +1,4 @@
-package org.developfreedom.wordpowermadeeasy;
+package org.developfreedom.wordpowermadeeasy.utils;
 
 import android.app.AlertDialog;
 import android.content.Context;

@@ -37,6 +37,8 @@ import butterknife.Bind;
 import butterknife.BindColor;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import org.developfreedom.wordpowermadeeasy.utils.Intents;
+import org.developfreedom.wordpowermadeeasy.utils.ViewUtils;
 import org.developfreedom.wordpowermadeeasy.word.WordEngine;
 import org.developfreedom.wordpowermadeeasy.word.WordPair;
 
@@ -89,8 +91,7 @@ public class HomeActivity extends Activity {
         String searchQuery = wordTv.getText().toString();
         searchQuery = searchQuery.replace(' ', '+');
         Uri uri = Uri.parse("http://www.google.com/#q=define:" + searchQuery);
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
+        Intents.maybeStartActivity(this, new Intent(Intent.ACTION_VIEW, uri));
     }
 
     @OnClick(R.id.textview_meaning) void nextRandom() {
