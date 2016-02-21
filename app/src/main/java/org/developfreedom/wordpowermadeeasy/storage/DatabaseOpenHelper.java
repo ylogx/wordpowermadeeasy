@@ -2,12 +2,12 @@
  * Word Power Made Easy - A vocabulary building application
  * <p/>
  * This file is part of LogMeIn.
- * Copyright (c) 2014 Shubham Chaudhary <me@shubhamchaudhary.in>
- * Copyright (c) 2014 Tanjot Kaur <tanjot28@gmail.com>
- * Copyright (c) 2014 Vivek Aggarwal <vivekaggarwal92@gmail.com>
+ * Copyright (c) 2016 Shubham Chaudhary <me@shubhamchaudhary.in>
+ * Copyright (c) 2016 Tanjot Kaur <tanjot28@gmail.com>
+ * Copyright (c) 2016 Vivek Aggarwal <vivekaggarwal92@gmail.com>
  * <p/>
  * This file is now also a part of WordPowerMadeEasy.
- * Copyright (c) 2014 Shubham Chaudhary <me@shubhamchaudhary.in>
+ * Copyright (c) 2016 Shubham Chaudhary <me@shubhamchaudhary.in>
  * <p/>
  * WordPowerMadeEasy is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

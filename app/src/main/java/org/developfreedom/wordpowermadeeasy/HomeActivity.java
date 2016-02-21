@@ -1,7 +1,7 @@
 /**
  * Word Power Made Easy - A vocabulary building application
  * <p/>
- * Copyright (c) 2014 Shubham Chaudhary <me@shubhamchaudhary.in>
+ * Copyright (c) 2016 Shubham Chaudhary <me@shubhamchaudhary.in>
  * <p/>
  * This file is part of WordPowerMadeEasy.
  * <p/>
