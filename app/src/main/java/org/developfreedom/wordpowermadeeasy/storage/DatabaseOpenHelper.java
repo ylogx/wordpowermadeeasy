@@ -23,7 +23,7 @@
  * along with WordPowerMadeEasy.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.developfreedom.wordpowermadeeasy;
+package org.developfreedom.wordpowermadeeasy.storage;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

@@ -28,7 +28,7 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import org.developfreedom.wordpowermadeeasy.DatabaseOpenHelper;
+import org.developfreedom.wordpowermadeeasy.storage.DatabaseOpenHelper;
 import org.developfreedom.wordpowermadeeasy.R;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
