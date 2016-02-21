@@ -42,7 +42,7 @@ import org.developfreedom.wordpowermadeeasy.word.WordPair;
 
 public class HomeActivity extends Activity {
     public static final String PREF_WELCOME_SCREEN_SHOWN = "welcomeScreenShown";
-    public static final String PREF_TEXT_COLOR = "textColor";
+    public static final String PREF_TEXT_COLOR = "textColorInt";
     private static final String TAG = HomeActivity.class.getSimpleName();
     private static final int MILLIS_DELAY_IN_SHOWING_MEANING = 1000;
     @Bind(R.id.textview_word) TextView wordTv;
@@ -70,25 +70,19 @@ public class HomeActivity extends Activity {
     }
 
     private void showWelcomeScreenIfNotShownYet() {
-        Boolean welcomeScreenShown = prefs.getBoolean(PREF_WELCOME_SCREEN_SHOWN, false);
-
-        if (!welcomeScreenShown) {
-            showWelcomeScreen();
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean(PREF_WELCOME_SCREEN_SHOWN, true);
-            editor.commit();
+        if (!prefs.getBoolean(PREF_WELCOME_SCREEN_SHOWN, false)) {
+            AlertDialog.Builder builder = ViewUtils.newBestAlertDialogBuilder(this);
+            builder.setTitle(R.string.welcomeTitle)
+                    .setMessage(R.string.welcomeText)
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override public void onClick(DialogInterface dialog, int which) {
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putBoolean(PREF_WELCOME_SCREEN_SHOWN, true);
+                            editor.commit();
+                            dialog.dismiss();
+                        }
+                    }).show();
         }
-    }
-
-    private void showWelcomeScreen() {
-        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_menu_help)
-                .setTitle(R.string.welcomeTitle)
-                .setMessage(R.string.welcomeText)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).show();
     }
 
     @Override public boolean onCreateOptionsMenu(Menu menu) {
@@ -164,8 +158,8 @@ public class HomeActivity extends Activity {
     }
 
     private static class TextChangeRunnable implements Runnable {
-        private TextView textView;
-        private String text;
+        private final TextView textView;
+        private final String text;
 
         public TextChangeRunnable(TextView textView, String text) {
             this.textView = textView;
