@@ -85,26 +85,6 @@ public class HomeActivity extends Activity {
         }
     }
 
-    @Override public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        if (id == R.id.action_color_blue) {
-            changeColorAndSaveInPrefs(colorBlue);
-        } else if (id == R.id.action_color_green) {
-            changeColorAndSaveInPrefs(colorGreen);
-        } else if (id == R.id.action_color_orange) {
-            changeColorAndSaveInPrefs(colorOrange);
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     @OnClick(R.id.button_search) void searchWord() {
         String searchQuery = wordTv.getText().toString();
         searchQuery = searchQuery.replace(' ', '+');
@@ -155,6 +135,27 @@ public class HomeActivity extends Activity {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(PREF_TEXT_COLOR, color);
         editor.commit(); // Very important to save the preference
+    }
+
+
+    @Override public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        if (id == R.id.action_color_blue) {
+            changeColorAndSaveInPrefs(colorBlue);
+        } else if (id == R.id.action_color_green) {
+            changeColorAndSaveInPrefs(colorGreen);
+        } else if (id == R.id.action_color_orange) {
+            changeColorAndSaveInPrefs(colorOrange);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private static class TextChangeRunnable implements Runnable {
