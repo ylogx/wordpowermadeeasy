@@ -36,8 +36,8 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends Activity {
-    public static final String TAG = MainActivity.class.getSimpleName();
+public class HomeActivity extends Activity {
+    public static final String TAG = HomeActivity.class.getSimpleName();
     public static final String COLOR_BLUE = "blue";
     public static final String COLOR_RED = "red";
     public static final String COLOR_GREEN = "green";
@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
         wordEngine = new WordEngine(this);
