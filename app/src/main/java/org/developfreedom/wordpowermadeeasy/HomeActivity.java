@@ -126,21 +126,17 @@ public class HomeActivity extends Activity {
         startActivity(intent);
     }
 
-    @OnClick(R.id.textview_meaning) void nextRandom(View v) {
+    @OnClick(R.id.textview_meaning) void nextRandom() {
         if (meaningDelayedTask != null &&
                 meaningDelayedTask.getStatus() == AsyncTask.Status.RUNNING)
             meaningDelayedTask.cancel(true);
-        WordPair wordPair = nextRandom();
+        WordPair wordPair = wordEngine.getRandomWord();
         wordTv.setText(wordPair.getWord());
         meaningTv.setText("");   //Empty, if user waits then show else move on
         String meaning = wordPair.getMeaning(); //should be passed to task probably
 
         //Run on thread with a delay of MILLIS_DELAY_IN_SHOWING_MEANING
         meaningDelayedTask = new LongRunningTask().execute(meaning);
-    }
-
-    private WordPair nextRandom() {
-        return wordEngine.getRandomWord();
     }
 
     private void changeColor(String color) {
