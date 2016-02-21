@@ -14,8 +14,35 @@ dependencies {
     androidTestCompile 'org.robolectric:robolectric:2.4'
 }
 
-def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
-def buildTime = new Date().format("yyyy-MM-dd'T'HH:mm:ss'Z'", TimeZone.getTimeZone("UTC"))
+def gitSha() {
+    def p = 'git rev-parse --short HEAD'.execute([], project.rootDir)
+    p.waitFor()
+    if (p.exitValue() != 0) {
+        throw new RuntimeException(p.errorStream.text)
+    }
+
+    return p.text.trim()
+}
+
+def gitTimestamp() {
+    def p = 'git log -n 1 --format=%at'.execute([], rootDir)
+    p.waitFor()
+    if (p.exitValue() != 0) {
+        throw new RuntimeException(p.errorStream.text)
+    }
+
+    return p.text.trim()
+}
+
+def buildTime() {
+    return new Date().format("yyyy-MM-dd'T'HH:mm:ss'Z'", TimeZone.getTimeZone("UTC"));
+}
+
+// Manifest version information!
+def versionMajor = 0
+def versionMinor = 1
+def versionPatch = 7
+def versionBuild = 0 // bump for dogfood builds, public betas, etc.
 
 android {
     compileSdkVersion Integer.parseInt(compile_sdk_version)
@@ -25,11 +52,13 @@ android {
         applicationId "org.developfreedom.wordpowermadeeasy"
         minSdkVersion 8
         targetSdkVersion 23
-        versionCode 16
-        versionName "0.1.6"
 
-        buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
-        buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
+        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+
+        buildConfigField 'String', 'GIT_SHA', "\"${gitSha()}\""
+        buildConfigField 'long', 'GIT_TIMESTAMP', "${gitTimestamp()}L"
+        buildConfigField "String", "BUILD_TIME", "\"${buildTime()}\""
     }
 
     signingConfigs {
@@ -59,10 +88,12 @@ android {
     }
 
     lintOptions {
-        abortOnError false
-        checkReleaseBuilds false
+        abortOnError true
+        checkReleaseBuilds true
         textReport true
         textOutput 'stdout'
+        fatal 'UnusedResources'
+        warning 'ResourceType' //TODO remove eventually with ButterKnife 8.0 release
     }
 
     testOptions {
