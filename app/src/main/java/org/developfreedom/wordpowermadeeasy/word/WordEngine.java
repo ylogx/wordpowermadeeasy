@@ -25,7 +25,6 @@ import android.content.Context;
 import android.content.res.XmlResourceParser;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import org.developfreedom.wordpowermadeeasy.R;
 import org.developfreedom.wordpowermadeeasy.storage.DatabaseOpenHelper;
 import org.xmlpull.v1.XmlPullParser;
@@ -36,7 +35,6 @@ import java.util.*;
 
 public class WordEngine {
     public static final int DEFAULT_SCORE = 50;
-    private static int count = 0;
     private final Context context;
     private final SQLiteOpenHelper myDatabaseHelper;
     private SQLiteDatabase database;
@@ -46,11 +44,8 @@ public class WordEngine {
         this.context = ctx;
         this.myDatabaseHelper = new DatabaseOpenHelper(context);
         try {
-            //XXX do this once ever
-            this.wordMap = readXml();
+            readXmlIntoMap(); //XXX do this once ever
             populateDatabase();
-            WordEngine.count += 1;
-            Log.i("WordEngine", "Count: " + count);
         } catch (XmlPullParserException | IOException e) {
             e.printStackTrace();
         }
@@ -86,20 +81,20 @@ public class WordEngine {
 
     public WordPair getRandomWord() {
         Random rand = new Random();
-        List<String> keys = new ArrayList<String>(wordMap.keySet());
+        List<String> keys = new ArrayList<>(wordMap.keySet());
         String randomKey = keys.get(rand.nextInt(keys.size()));
         String value = wordMap.get(randomKey);
         return new WordPair(randomKey, value);
     }
 
-    public Map<String, String> readXml() throws XmlPullParserException, IOException {
+    private void readXmlIntoMap() throws XmlPullParserException, IOException {
         XmlResourceParser xrp = context.getResources().getXml(R.xml.word_list);
-
         xrp.next();
-        int eventType = xrp.getEventType();
+
+        wordMap = new HashMap<>();
         String word = null;
         String meaning = null;
-        Map<String, String> wordPairMap = new HashMap<>();
+        int eventType = xrp.getEventType();
         while (eventType != XmlPullParser.END_DOCUMENT) {
             if ((eventType == XmlPullParser.START_TAG)
                     && "pair".equalsIgnoreCase(xrp.getName())) {
@@ -125,14 +120,13 @@ public class WordEngine {
             } else if ((eventType == XmlPullParser.END_TAG)
                     && "pair".equalsIgnoreCase(xrp.getName())) {
                 if ((word != null) && (meaning != null) && (word.length() != 0) && (meaning.length() != 0)) {
-                    if (wordPairMap.get(word) == null) {
-                        wordPairMap.put(word, meaning);
+                    if (wordMap.get(word) == null) {
+                        wordMap.put(word, meaning);
                     }
                 }
             }
             eventType = xrp.next();
         }
-        return wordPairMap;
     }
 }
 // vim: set ts=4 sw=4 tw=0 et :
