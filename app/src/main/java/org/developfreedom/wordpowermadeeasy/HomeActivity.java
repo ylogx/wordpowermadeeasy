@@ -34,6 +34,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import butterknife.Bind;
+import butterknife.BindColor;
 import butterknife.ButterKnife;
 import org.developfreedom.wordpowermadeeasy.word.WordEngine;
 import org.developfreedom.wordpowermadeeasy.word.WordPair;
@@ -50,13 +51,15 @@ public class HomeActivity extends Activity {
     private final String PREF_TEXT_COLOR = "textColor";
     @Bind(R.id.textview_word) TextView wordTv;
     @Bind(R.id.textview_meaning) TextView meaningTv;
+    @BindColor(R.color.holo_blue_light) int colorBlue;
+    @BindColor(R.color.holo_green_light) int colorGreen;
+    @BindColor(R.color.holo_orange_light) int colorOrange;
+    @BindColor(R.color.holo_red_light) int colorRed;
+    @BindColor(R.color.holo_purple) int colorPurple;
     private AsyncTask meaningDelayedTask;
     /** Engines */
     private WordEngine wordEngine;
     private SharedPreferences prefs;
-    private int colorBlue;
-    private int colorGreen;
-    private int colorOrange;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,11 +85,9 @@ public class HomeActivity extends Activity {
     }
 
     private void showWelcomeScreen() {
-        String welcomeTitle = getResources().getString(R.string.welcomeTitle);
-        String welcomeText = getResources().getString(R.string.welcomeText);
         new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_menu_help)
-                .setTitle(welcomeTitle)
-                .setMessage(welcomeText)
+                .setTitle(R.string.welcomeTitle)
+                .setMessage(R.string.welcomeText)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -149,22 +150,19 @@ public class HomeActivity extends Activity {
         int wordTvCurrentTextColor = wordTv.getCurrentTextColor();
         int meaningTvCurrentTextColor = meaningTv.getCurrentTextColor();
         if (color.equals(COLOR_BLUE)) {
-            colorBlue = getResources().getColor(R.color.holo_blue_light);
             wordTvCurrentTextColor = colorBlue;
             meaningTvCurrentTextColor = colorBlue;
         } else if (color.equals(COLOR_GREEN)) {
-            colorGreen = getResources().getColor(R.color.holo_green_light);
             wordTvCurrentTextColor = colorGreen;
             meaningTvCurrentTextColor = colorGreen;
         } else if (color.equals(COLOR_ORANGE)) {
-            colorOrange = getResources().getColor(R.color.holo_orange_light);
             wordTvCurrentTextColor = colorOrange;
             meaningTvCurrentTextColor = colorOrange;
         } else if (color.equals(COLOR_RED)) {
-            wordTvCurrentTextColor = getResources().getColor(R.color.holo_red_light);
-            meaningTvCurrentTextColor = getResources().getColor(R.color.holo_red_light);
+            wordTvCurrentTextColor = colorRed;
+            meaningTvCurrentTextColor = colorRed;
         } else if (color.equals(COLOR_PURPLE) || color.equals("voilet")) {
-            wordTvCurrentTextColor = meaningTvCurrentTextColor = getResources().getColor(R.color.holo_purple);
+            wordTvCurrentTextColor = meaningTvCurrentTextColor = colorPurple;
         }
         wordTv.setTextColor(wordTvCurrentTextColor);
         meaningTv.setTextColor(meaningTvCurrentTextColor);
